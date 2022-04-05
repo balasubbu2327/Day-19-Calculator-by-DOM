@@ -1,58 +1,147 @@
-var div = document.createElement("div");
-div.className="container";
-var div2 = document.createElement("div");
-div2.className="Calculator";
+var container=document.createElement('div');
+ container.className="container"
 
-var inp = but ("input","type","text","")
-inp.setAttribute("id","output");
-inp.setAttribute("placeholder","0");
+ var div1=document.createElement('div');
+ div1.className="titletag"
+ var h1=createtag("h1","title","Calculator");
+ var p=createtag("p","description","Calculator Description");
 
-var but1=but ("button","onclick","Clear()","Cl");
-var but2=but ("button","onclick","del()","Del");
-var but3=but ("button","onclick","display('%')","%");
-var but4=but ("button","onclick","display('/')","/");
-var but5=but ("button","onclick","display('7')","7");
-var but6=but ("button","onclick","display('8')","8");
-var but7=but ("button","onclick","display('9')","9");
-var but8=but ("button","onclick","display('*')","*");
-var but9=but ("button","onclick","display('4')","4");
-var but10=but ("button","onclick","display('5')","5");
-var but11=but ("button","onclick","display('6')","6");
-var but12=but ("button","onclick","display('-')","-");
-var but13=but ("button","onclick","display('1')","1");
-var but14=but ("button","onclick","display('2')","2");
-var but15=but ("button","onclick","display('3')","3");
-var but16=but ("button","onclick","display('+')","+");
-var but17=but ("button","onclick","display('.')",".");
-var but18=but ("button","onclick","display('0')","0");
-var but19=but ("button","onclick","Calculate()","=");
-but19.setAttribute("class","equal");
-// function Shortcut
-function but (elementname,attribute,attrvalue,value){
-    var res = document.createElement(elementname);
-    res.setAttribute(attribute,attrvalue);
-    res.innerHTML=value;
-    return res;
+
+function createtag(tagname,idname,data) {
+    var tag=document.createElement(tagname);
+    tag.setAttribute("id",idname)
+    tag.innerHTML=data
+    return tag;
 }
-div2.append(inp,but1,but2,but3,but4,but5,but6,but7,but8,but9,but10,but11,but12,but13,but14,but15,but16,but17,but18,but19);
-div.append(div2);
-document.body.append(div);
-// function for mathematical Operations
-let outputScreen = document.getElementById("output");
-function display(num){
-    outputScreen.value += num;
+
+
+ var div2=document.createElement('div');
+ div2.className="row"
+
+ var divcal1=creatediv("div","calc")
+ divcal1.className="text-center";
+
+ var display=creatediv("div","display");
+ var keyboard=creatediv("div","keyboard");
+ var inputbox=input();
+ var row1=createrow("div","row");
+
+  var button1=createbutton('button','button','c','clear',"btn btn-secondary","Clear")
+  var button2=createbutton('button','button','delete' ,'delete','btn btn-danger',"Delete")
+  var button3=createbutton('button','button','.' ,'dot','btn btn-warning',".")
+  var button4=createbutton('button','button','*' ,'mult','btn btn-info',"*")
+
+  var row2=createrow("div","row");
+var button5=createbutton('button','button','7' ,"7","btn  btn-outline-primary",'7')
+var button6=createbutton('button','button','8',"8","btn  btn-outline-primary",'8')
+var button7=createbutton('button','button','9','9',"btn  btn-outline-primary",'9')
+var button8=createbutton('button','button','/' ,'divi','btn btn-info','/')
+
+var row3=createrow("div","row"); 
+var button9=createbutton('button','button','4','4',"btn  btn-outline-primary",'4')
+var button10=createbutton('button','button','5','5',"btn  btn-outline-primary",'5')
+var button11=createbutton('button','button','6','6',"btn  btn-outline-primary",'6')
+var button12=createbutton('button','button','-','subtract','btn btn-info','-')
+
+var row4=createrow("div","row");
+var button13=createbutton('button','button','1','1',"btn  btn-outline-primary",'1')
+var button14=createbutton('button','button','2','2',"btn  btn-outline-primary",'2')
+var button15=createbutton('button','button','3','3',"btn  btn-outline-primary",'3')
+var button16=createbutton('button','button','+','add','btn btn-info','+')
+
+var row5=createrow("div","row");
+var button17=createbutton('button','button','0','0',"btn  btn-outline-primary",'0')
+var button18=createbutton('button','button','00','00',"btn  btn-outline-primary",'00')
+var button19=createbutton('button','button','=' ,'equal','equal-sign  btn btn-success','=')
+
+function input(){
+ var inputbox=  document.createElement('input');
+ inputbox.setAttribute('type', 'text');
+ inputbox.setAttribute('placeholder', '0');
+ inputbox.setAttribute('id','result')
+ return inputbox;
 }
-function Calculate(){
-    try{
-        outputScreen.value = eval(outputScreen.value);
-    }
-    catch(err){
-        alert("Invalid")
-    }
+
+function creatediv(divtag,dividname)
+{
+    var divtag=document.createElement(divtag);
+    divtag.setAttribute("id",dividname)
+    return divtag;
 }
-function Clear(){
-    outputScreen.value =" ";
+
+function createrow(rowtag,rowname){
+    var divtag=document.createElement(rowtag);
+    divtag.setAttribute("class",rowname)
+    return divtag;
 }
+function createbutton(bttag,bttype,btvalue,btid,btclassname,name) {
+    var button= document.createElement(bttag)
+    button.setAttribute('type',bttype);
+    button.setAttribute('value',btvalue);
+    button.setAttribute('id',btid);
+    button.className=btclassname;
+    button.innerHTML=name
+    button.addEventListener('click', (e)=>{
+        var data=e.target.value
+        if(data=="=")
+        {
+           solve( );
+        }
+        else if(data=='delete')
+        {
+            del();
+        }
+        else{
+           dis(data)
+        }
+        if(data=="c")
+        {
+           clr();
+        }
+        if(data=="delete")
+        {
+           del();
+        }
+    
+           })
+  return button;
+}
+function dis(val)
+{
+    document.getElementById("result").value+=val
+   
+}
+
+function solve(e)
+{
+ 
+    let x = document.getElementById("result").value
+   if(x==""){
+    document.getElementById("result").value = ""
+   }else{
+    let y = eval(x)
+    document.getElementById("result").value = y
+   }
+
+}
+
 function del(){
-    outputScreen.value =outputScreen.value.slice(0,-1);
+    document.getElementById("result").value =document.getElementById("result").value.slice(0,-1);
 }
+
+function clr()
+{
+    document.getElementById("result").value = ""
+}
+div1.append(h1,p)
+display.append(inputbox)
+row1.append(button1,button2,button3,button4)
+row2.append(button5,button6,button7,button8)
+row3.append(button9,button10,button11,button12)
+row4.append(button13,button14,button15,button16)
+row5.append(button17,button18,button19)
+keyboard.append(row1,row2,row3,row4,row5)
+divcal1.append(display,keyboard)
+div2.append(divcal1)
+container.append(div1,div2);
+document.body.append(container)
