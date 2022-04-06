@@ -61,6 +61,7 @@ function input(){
  inputbox.setAttribute('id','result')
  return inputbox;
 }
+
 function creatediv(divtag,dividname)
 {
     var divtag=document.createElement(divtag);
@@ -100,6 +101,7 @@ function createbutton(bttag,bttype,btvalue,btid,btclassname,name) {
            })
   return button;
 }
+// function for mathematical Operations
 function dis(val)
 {
     document.getElementById("result").value+=val
@@ -108,22 +110,18 @@ function dis(val)
 
 function solve(e)
 {
- 
-    let x = document.getElementById("result").value
-   if(x==""){
-    document.getElementById("result").value = ""
-   }else{
-    let y = eval(x)
-    document.getElementById("result").value = y
-   }
-
+    let outputScreen=document.getElementById("result");
+    try{
+        outputScreen.value = eval(outputScreen.value);
+    }
+    catch(err){
+        alert("Invalid Not a number")
+    }
 }
 function del(){
     let outputScreen=document.getElementById("result");
-
     outputScreen.value =outputScreen.value.slice(0,-1);
 }
-
 function clr()
 {
     document.getElementById("result").value = ""
