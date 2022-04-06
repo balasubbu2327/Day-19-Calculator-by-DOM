@@ -61,7 +61,6 @@ function input(){
  inputbox.setAttribute('id','result')
  return inputbox;
 }
-
 function creatediv(divtag,dividname)
 {
     var divtag=document.createElement(divtag);
@@ -97,12 +96,7 @@ function createbutton(bttag,bttype,btvalue,btid,btclassname,name) {
         if(data=="c")
         {
            clr();
-        }
-        if(data=="delete")
-        {
-           del();
-        }
-    
+        }    
            })
   return button;
 }
@@ -124,9 +118,10 @@ function solve(e)
    }
 
 }
-
 function del(){
-    document.getElementById("result").value =document.getElementById("result").value.slice(0,-1);
+    let outputScreen=document.getElementById("result");
+
+    outputScreen.value =outputScreen.value.slice(0,-1);
 }
 
 function clr()
